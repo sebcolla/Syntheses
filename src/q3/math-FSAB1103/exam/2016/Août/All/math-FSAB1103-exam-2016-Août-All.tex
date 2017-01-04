@@ -3,7 +3,7 @@
 \usepackage{../../../math-FSAB1103-exam}
 
 \hypertitle{Math\'ematique}{3}{FSAB}{1103}{2016}{Ao\^ut}
-{William André}
+{William André \and Colla Sébastien}
 {Jean-François Remacle et Grégoire Winckelmans}
 
 \section{Question 1 : caractéristiques}
@@ -39,6 +39,67 @@ avec $\alpha > 0$ constant. Le domaine est borné : $0 \leq x \leq L$. La condit
 \end{enumerate}
 
 \begin{solution}
+\begin{enumerate}
+	\item Il s'agit d'une équation de diffusion en 1-D. C'est donc une EDP parabolique.
+	Dans ce problème un temps court est un temps adimentionnel beaucoup plus petit que 1 :
+	$\tilde{t} =\frac{\alpha t}{L^2} << 1$. 
+	
+	\begin{center}
+	On a donc que
+	$ \quad 0 < t << \frac{L^2}{\alpha} $
+	\end{center}
+	\item On a $ u(x,t) = R(x) + \Theta(t)$
+	
+	La solution de régime $R(x)$ est obtenue en intégrant l'EDP dans laquelle on a remplacer $u$ par $R(x)$ :
+	\begin{center}
+	$R(x) =  - \frac{Q_0}{2 \alpha} x^2 + Ax + B$
+	\end{center}
+	Les conditions limites non-homogènes doivent être respectées par $R(x)$. 
+    \begin{center}   
+	$R'(0) = A = \frac{2u_0}{L}$
+	    
+	$R(L) = -\frac{Q_0 L^2}{2 \alpha} + 2 u_0 + B = u_0 \quad \Leftrightarrow  \quad B = \frac{Q_0 L^2}{2 \alpha} - u_0$
+	\end{center}
+	
+	Donc $ R(x) = \frac{Q_0}{2 \alpha} (L^2 - x^2) + u_0 ( \frac{2x}{L} -1)$
+	\\[0.5cm]
+	La solution transitoire est $\Theta(x,t) = u(x,t) - R(x) $.
+	\\ Les conditions limites deviennent :
+	
+	\begin{center}
+	$\Theta(0,t) = u(0,t) - R(0) = \frac{2u_0}{L} -  \frac{2u_0}{L} = 0$
+	
+	$\Theta(L,t) = u(L,t) - R(0) = u_0 -  u_0 = 0$
+	\end{center}
+	
+	Et la condition initiale :
+	\begin{center}
+	    $\Theta(x,0) = u(x,0) - R(x) = - \frac{Q_0}{2 \alpha} (L^2 - x^2) = \frac{Q_0}{2 \alpha} (x^2 - L^2)$
+	\end{center}
+	La linéarité de l'EDP nous permet de dire que le cas non-homogène est traité en trouvant la solution $R(x)$.   $\Theta(x,t)$ est donc solution de l'EDP homogène correspondante.
+	
+	Par séparation des variables : $ \Theta(x,t) = X(x) T(t) $   on peut écrire que 
+	$$\frac{T'}{\alpha T} = \frac{X''}{X} = \lambda $$
+	
+	On s'attend à trouver une exponentielle décroissante comme solution pour T. Il faut donc prendre le cas $ \lambda = - k^2$.
+	
+	On a alors que $T' = \alpha k^2 T \quad \Rightarrow \quad T(t) = C e^{-\alpha k^2 t}$
+	
+	Et $ X'' = -k^2X \quad \Rightarrow \quad X(x) = D \sin(kx) + E\cos(kx)$
+	
+	
+	Par les conditions limites sur $\Theta$, on trouve que  $ D = 0 $ et que $k_n = \frac{(2n-1) \pi}{2 L} \quad (n = 1, 2, ...)$
+	
+	$$ \textnormal{Donc} \quad \Theta(x,t) = \sum_{n=1}^{\infty}\tilde{A}_n \cos(k_n x) e^{-\alpha k_n^2 t} \quad 
+	\textnormal{Avec} \quad k_n = \frac{(2n-1) \pi}{2 L} \quad (n = 1, 2, ...)$$
+	
+	Il suffit d'appliquer le condition initiale sur $\Theta$ pour déterminer les $\tilde{A}_n$ : 
+	
+	$$\Theta(x,0) = \sum_{n=1}^{\infty}\tilde{A}_n \cos(k_n x) = \frac{Q_0}{2 \alpha} (x^2 - L^2) $$ 
+	
+	Ainsi, par l'orthogonalité des fonctions propres (cos), on a que 
+	$$ \tilde{A}_n \int_{0}^{L} \cos^2(k_nx) \, \mathrm{d}x = \int_{0}^{L} \frac{Q_0}{2 \alpha} (x^2 - L^2) \cos(k_nx) \, \mathrm{d}x$$
+	$$ \tilde{A}_n = \frac{2}{L} \frac{Q_0}{\alpha k_n^3} (-1)^{n-1} \quad (\textnormal{où} \quad \sin(k_n L) = (-1)^{n-1}) $$
 \end{solution}
 
 
